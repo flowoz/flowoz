@@ -1,0 +1,58 @@
+textarea.text-input('[(ngModel)]'="content")
+br
+sm-button.positive((click)="analyze()") Analizar
+
+div(*ngIf="wordsCounterT.length > 0")
+
+  .ui.divider
+  sm-tabs
+    sm-tab(*ngFor="let a of [{title:'Palabras', active: true}, {title:'Párrafos', active: false}]", '[title]'="a.title", '[active]'="a.active")
+
+      .tab-content(*ngIf="a.title == 'Párrafos'")
+        p Párrafos detectados {{paraphs.length}}
+        table.ui.sortable.celled.table
+          thead
+            tr
+              th Contenido
+              th Largo
+          tbody
+            tr(*ngFor="let paraph of paraphs", [ngClass]="{'warning': paraph.length > 300, 'active': paraph.length > 350}")
+              td {{paraph}}
+              td {{paraph.length}}
+
+      .tab-content(*ngIf="a.title == 'Palabras'")
+
+        .ui.buttons
+          .ui.button([ngClass]="{'positive':enabled['1x']}", (click)="enableX('1x')") 1x
+          .ui.button([ngClass]="{'positive':enabled['2x']}", (click)="enableX('2x')") 2x
+          .ui.button([ngClass]="{'positive':enabled['3x']}", (click)="enableX('3x')") 3x
+
+        table.ui.sortable.celled.table(*ngIf="enabled['1x']")
+          thead
+            tr
+              th((click)="setOrder('word')", [ngClass]="{'sorted': order == 'word', 'ascending': ascending == true, 'descending': ascending == false}") Palabra
+              th((click)="setOrder('count')", [ngClass]="{'sorted': order == 'count', 'ascending': ascending == true, 'descending': ascending == false}") Conteo
+          tbody
+            tr(*ngFor="let row of wordsCounterT | orderBy: order:!ascending:'case-insensitive'")
+              td {{row.word}}
+              td {{row.count}}
+
+        table.ui.sortable.celled.table(*ngIf="enabled['2x']")
+          thead
+            tr
+              th((click)="setOrder('word')", [ngClass]="{'sorted': order == 'word', 'ascending': ascending == true, 'descending': ascending == false}") Palabra
+              th((click)="setOrder('count')", [ngClass]="{'sorted': order == 'count', 'ascending': ascending == true, 'descending': ascending == false}") Conteo
+          tbody
+            tr(*ngFor="let row of wordsCounter2T | orderBy: order:!ascending:'case-insensitive'")
+              td {{row.word}}
+              td {{row.count}}
+
+        table.ui.sortable.celled.table(*ngIf="enabled['3x']")
+          thead
+            tr
+              th((click)="setOrder('word')", [ngClass]="{'sorted': order == 'word', 'ascending': ascending == true, 'descending': ascending == false}") Palabra
+              th((click)="setOrder('count')", [ngClass]="{'sorted': order == 'count', 'ascending': ascending == true, 'descending': ascending == false}") Conteo
+          tbody
+            tr(*ngFor="let row of wordsCounter3T | orderBy: order:!ascending:'case-insensitive'")
+              td {{row.word}}
+              td {{row.count}}
