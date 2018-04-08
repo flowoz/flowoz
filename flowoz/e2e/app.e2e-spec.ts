@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('gramy App', () => {
+describe('flowoz App', () => {
   let page: AppPage;
 
   beforeEach(() => {
