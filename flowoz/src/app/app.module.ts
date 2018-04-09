@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { NgSemanticModule } from "ng-semantic";
+import { SuiModule } from 'ng2-semantic-ui';
 import { OrderModule } from 'ngx-order-pipe';
 
 import { AppComponent } from './app.component';
@@ -18,7 +18,7 @@ import { AnalysisComponent } from './analysis/analysis.component';
   imports: [
     BrowserModule,
     FormsModule,
-    NgSemanticModule,
+    SuiModule,
     CommonModule,
     OrderModule
   ],
