@@ -30,6 +30,10 @@ export class AnalysisComponent implements OnInit {
 
   constructor() {}
 
+  removeDiacritics (str) {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+  }
+
   ngOnInit() {
 
     this.stopWords = [
@@ -102,6 +106,7 @@ export class AnalysisComponent implements OnInit {
     words.forEach((key, index) => {
       if (index > 0) {
         let toPush = words[index - 1] + " " + key;
+        toPush = this.removeDiacritics(toPush);
         pairs.push(toPush);
       }
     });
@@ -113,6 +118,7 @@ export class AnalysisComponent implements OnInit {
     words.forEach((key, index) => {
       if (index > 1) {
         let toPush = words[index - 2] + " " + words[index - 1] + " " + key;
+        toPush = this.removeDiacritics(toPush);
         triad.push(toPush);
       }
     });
